@@ -1,8 +1,6 @@
 spring:
   application:
     name: app
-
-spring:
   jpa:
     show-sql: true
     hibernate:
