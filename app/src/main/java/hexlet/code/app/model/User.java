@@ -11,9 +11,13 @@ import jakarta.validation.constraints.NotBlank;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,30 +30,65 @@ import lombok.ToString;
 @Setter
 @ToString(includeFieldNames = true, onlyExplicitlyIncluded = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User {
+public class User implements BaseEntity, UserDetails {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @ToString.Include
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotBlank
-    @ToString.Include
-    private String firstName;
-
-    @NotBlank
-    @ToString.Include
-    private String lastName;
-
     @Email
+    @NotBlank
     @Column(unique = true)
     private String email;
 
-    private String password;
+    @ToString.Include
+    private String firstName;
+
+    @ToString.Include
+    private String lastName;
 
     @CreatedDate
     private LocalDate createdAt;
 
     @LastModifiedDate
     private LocalDate updatedAt;
+    
+    @NotBlank
+    private String passwordDigest;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<GrantedAuthority>();
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordDigest;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 }
