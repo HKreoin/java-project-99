@@ -39,7 +39,7 @@ import hexlet.code.app.util.ModelGenerator;
 public class UsersControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    
+
     @Autowired
     private WebApplicationContext wac;
 
@@ -83,7 +83,7 @@ public class UsersControllerTest {
                 .getResponse();
         var body = response.getContentAsString();
 
-        List<UserDTO> userDTOS = objectMapper.readValue(body, new TypeReference<>() {});
+        List<UserDTO> userDTOS = objectMapper.readValue(body, new TypeReference<>() { });
 
         var actual = userDTOS.stream().map(userMapper::map).toList();
         var expected = userRepository.findAll();

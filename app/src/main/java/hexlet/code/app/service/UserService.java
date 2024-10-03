@@ -49,7 +49,7 @@ public class UserService {
         repository.save(user);
         return mapper.map(user);
     }
-    
+
     public void delete(Long id) {
         repository.deleteById(id);
     }

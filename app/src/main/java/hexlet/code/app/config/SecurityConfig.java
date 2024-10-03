@@ -46,9 +46,7 @@ public class SecurityConfig {
                     .oauth2ResourceServer(rs -> rs.jwt(jwt -> jwt.decoder(jwtDecoder)))
                     .httpBasic(Customizer.withDefaults())
                     .build();
-                    
         }
-
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {

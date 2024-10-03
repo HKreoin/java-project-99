@@ -17,7 +17,7 @@ public class WelcomeTest {
     @Autowired
     private MockMvc mockMvc;
 
-	@Test
+    @Test
     public void testIndex() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())

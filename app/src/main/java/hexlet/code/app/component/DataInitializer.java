@@ -22,7 +22,7 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        
+
         var userData = new UserCreateDTO();
         var email = "hexlet@example.com";
         userData.setEmail(email);

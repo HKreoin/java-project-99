@@ -53,7 +53,7 @@ public class User implements BaseEntity, UserDetails {
 
     @LastModifiedDate
     private LocalDate updatedAt;
-    
+
     @NotBlank
     private String passwordDigest;
 
