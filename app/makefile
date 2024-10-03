@@ -20,6 +20,7 @@ install:
 
 lint:
 	./gradlew checkstyleMain
+	./gradlew checkstyleTest
 
 test:
 	./gradlew test
