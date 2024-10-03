@@ -3,14 +3,17 @@ package hexlet.code.app.controller.api;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.HashMap;
 
 import org.assertj.core.api.Assertions;
 import org.instancio.Instancio;
@@ -33,6 +36,7 @@ import hexlet.code.app.mapper.UserMapper;
 import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
 import hexlet.code.app.util.ModelGenerator;
+import net.datafaker.Faker;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -54,6 +58,9 @@ public class UsersControllerTest {
 
     @Autowired
     private ModelGenerator modelGenerator;
+
+    @Autowired
+    private Faker faker;
 
     private JwtRequestPostProcessor token;
 
@@ -118,11 +125,34 @@ public class UsersControllerTest {
         mockMvc.perform(request)
                 .andExpect(status().isCreated());
 
-        var user =  userRepository.findByEmail(testUser.getEmail()).orElseThrow();
+        var user =  userRepository.findByEmail(data.getEmail()).get();
 
         assertNotNull(user);
-        assertEquals(testUser.getFirstName(), user.getFirstName());
-        assertEquals(testUser.getLastName(), user.getLastName());
-        assertEquals(testUser.getEmail(), user.getEmail());
+        assertEquals(user.getFirstName(), data.getFirstName());
+        assertEquals(user.getLastName(), data.getLastName());
+        assertEquals(user.getEmail(), data.getEmail());
+        assertNotNull(user.getCreatedAt());
     }
+
+    @Test
+    public void testUpdate() throws Exception {
+        var data = new HashMap<>();
+        data.put("firstName", "Testname");
+        data.put("lastName", "Testlast");
+        var id = testUser.getId();
+
+        var request = put("/api/users/" + id)
+                .with(token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(data));
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
+
+        var user = userRepository.findById(id).get();
+        assertThat(user.getFirstName()).isEqualTo("Testname");
+        assertThat(user.getLastName()).isEqualTo("Testlast");
+        assertNotNull(user.getUpdatedAt());
+    }
+
 }
