@@ -37,7 +37,6 @@ import hexlet.code.app.mapper.UserMapper;
 import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
 import hexlet.code.app.util.ModelGenerator;
-import net.datafaker.Faker;
 
 @SpringBootTest
 @AutoConfigureMockMvc
