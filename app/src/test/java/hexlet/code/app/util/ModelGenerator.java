@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import hexlet.code.app.model.User;
+import hexlet.code.app.model.TaskStatus;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import net.datafaker.Faker;
@@ -15,6 +16,8 @@ import net.datafaker.Faker;
 @Component
 public class ModelGenerator {
     private Model<User> userModel;
+
+    private Model<TaskStatus> taskStatusModel;
 
     @Autowired
     private Faker faker;
@@ -27,6 +30,12 @@ public class ModelGenerator {
                 .supply(Select.field(User::getLastName), () -> faker.name().lastName())
                 .supply(Select.field(User::getEmail), () -> faker.internet().emailAddress())
                 .supply(Select.field(User::getPasswordDigest), () -> faker.internet().password(3, 10))
+                .toModel();
+
+        taskStatusModel = Instancio.of(TaskStatus.class)
+                .ignore(Select.field(TaskStatus::getId))
+                .supply(Select.field(TaskStatus::getName), () -> faker.harryPotter().spell())
+                .supply(Select.field(TaskStatus::getSlug), () -> faker.harryPotter().book())
                 .toModel();
     }
 
