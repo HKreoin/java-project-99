@@ -21,7 +21,7 @@ public class TaskStatusService {
     private TaskStatusMapper mapper;
 
     public List<TaskStatusDTO> findAll() {
-        var models= repository.findAll();
+        var models = repository.findAll();
         var result = models.stream()
                 .map(mapper :: map)
                 .toList();

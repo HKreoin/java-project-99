@@ -1,14 +1,23 @@
 package hexlet.code.app.controller.api;
 
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.instancio.Instancio;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +25,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -35,7 +37,6 @@ import hexlet.code.app.mapper.TaskStatusMapper;
 import hexlet.code.app.model.TaskStatus;
 import hexlet.code.app.repository.TaskStatusRepository;
 import hexlet.code.app.util.ModelGenerator;
-import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -71,8 +72,6 @@ public class TaskStatusControllerTest {
 
         token = jwt().jwt(builder -> builder.subject("hexlet@example.com"));
 
-        
-
         testTaskStatus = Instancio.of(modelGenerator.getTaskStatusModel())
                 .create();
         taskStatusRepository.save(testTaskStatus);
@@ -87,9 +86,9 @@ public class TaskStatusControllerTest {
                 .getResponse();
         var body = response.getContentAsString();
 
-        List<TaskStatusDTO> TaskStatusDTOS = objectMapper.readValue(body, new TypeReference<>() { });
+        List<TaskStatusDTO> taskStatusDTOS = objectMapper.readValue(body, new TypeReference<>() { });
 
-        var actual = TaskStatusDTOS.stream().map(taskStatusMapper::map).toList();
+        var actual = taskStatusDTOS.stream().map(taskStatusMapper::map).toList();
         var expected = taskStatusRepository.findAll();
 
         Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
@@ -123,11 +122,11 @@ public class TaskStatusControllerTest {
         mockMvc.perform(request)
                 .andExpect(status().isCreated());
 
-        var TaskStatus =  taskStatusRepository.findBySlug(data.getSlug()).get();
+        var taskStatus =  taskStatusRepository.findBySlug(data.getSlug()).get();
 
-        assertNotNull(TaskStatus);
-        assertEquals(TaskStatus.getName(), data.getName());
-        assertNotNull(TaskStatus.getCreatedAt());
+        assertNotNull(taskStatus);
+        assertEquals(taskStatus.getName(), data.getName());
+        assertNotNull(taskStatus.getCreatedAt());
     }
 
     @Test
@@ -145,10 +144,10 @@ public class TaskStatusControllerTest {
         mockMvc.perform(request)
                 .andExpect(status().isOk());
 
-        var TaskStatus = taskStatusRepository.findById(id).get();
-        assertThat(TaskStatus.getName()).isEqualTo("TestName");
-        assertThat(TaskStatus.getSlug()).isEqualTo("TestSlug");
-        assertNotNull(TaskStatus.getUpdatedAt());
+        var taskStatus = taskStatusRepository.findById(id).get();
+        assertThat(taskStatus.getName()).isEqualTo("TestName");
+        assertThat(taskStatus.getSlug()).isEqualTo("TestSlug");
+        assertNotNull(taskStatus.getUpdatedAt());
     }
 
     @Test
