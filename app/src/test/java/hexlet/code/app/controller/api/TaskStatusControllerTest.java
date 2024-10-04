@@ -75,7 +75,6 @@ public class TaskStatusControllerTest {
 
         testTaskStatus = Instancio.of(modelGenerator.getTaskStatusModel())
                 .create();
-
         taskStatusRepository.save(testTaskStatus);
     }
 
@@ -112,7 +111,9 @@ public class TaskStatusControllerTest {
 
     @Test
     public void testCreate() throws Exception {
-        var data =  Instancio.of(modelGenerator.getTaskStatusModel()).create();
+        var data = Instancio.of(modelGenerator
+                        .getTaskStatusModel())
+                        .create();
 
         var request = post("/api/task_statuses")
                 .with(token)
@@ -122,19 +123,18 @@ public class TaskStatusControllerTest {
         mockMvc.perform(request)
                 .andExpect(status().isCreated());
 
-        var TaskStatus =  taskStatusRepository.findBySlug(data.getName()).get();
+        var TaskStatus =  taskStatusRepository.findBySlug(data.getSlug()).get();
 
         assertNotNull(TaskStatus);
         assertEquals(TaskStatus.getName(), data.getName());
-        assertEquals(TaskStatus.getSlug(), data.getSlug());
         assertNotNull(TaskStatus.getCreatedAt());
     }
 
     @Test
     public void testUpdate() throws Exception {
         var data = new HashMap<>();
-        data.put("name", "Testname");
-        data.put("slug", "Testlast");
+        data.put("name", "TestName");
+        data.put("slug", "TestSlug");
         var id = testTaskStatus.getId();
 
         var request = put("/api/task_statuses/" + id)
