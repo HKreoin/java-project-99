@@ -1,13 +1,14 @@
 package hexlet.code.app.component;
 
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import hexlet.code.app.dto.TaskStatusCreateDTO;
 import hexlet.code.app.dto.UserCreateDTO;
-import hexlet.code.app.mapper.UserMapper;
-import hexlet.code.app.repository.UserRepository;
+import hexlet.code.app.service.TaskStatusService;
 import hexlet.code.app.service.UserService;
 import lombok.AllArgsConstructor;
 
@@ -15,14 +16,12 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DataInitializer implements ApplicationRunner {
 
-    @Autowired
-    private final UserRepository userRepository;
-
-    @Autowired
-    private UserMapper mapper;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TaskStatusService taskStatusService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -32,5 +31,19 @@ public class DataInitializer implements ApplicationRunner {
         userData.setEmail(email);
         userData.setPassword("qwerty");
         userService.create(userData);
+
+        var taskStatuses = Map.of(
+                "Draft", "draft",
+                "ToReview", "to_review",
+                "ToBeFixed", "to_be_fixed",
+                "ToPublish", "to_publish",
+                "Published", "published");
+
+        taskStatuses.forEach((k, v) -> {
+            var statusData = new TaskStatusCreateDTO();
+            statusData.setName(k);
+            statusData.setSlug(v);
+            taskStatusService.create(statusData);
+        });
     }
 }
