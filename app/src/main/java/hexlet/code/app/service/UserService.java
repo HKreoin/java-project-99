@@ -21,33 +21,33 @@ public class UserService {
     private UserMapper mapper;
 
     public List<UserDTO> findAll() {
-        var users = repository.findAll();
-        var result = users.stream()
+        var models = repository.findAll();
+        var result = models.stream()
                 .map(mapper :: map)
                 .toList();
         return result;
     }
 
     public UserDTO findById(Long id) {
-        var user = repository.findById(id)
+        var model = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                 "User with id: " + id + "not found"));
-        return mapper.map(user);
+        return mapper.map(model);
     }
 
     public UserDTO create(UserCreateDTO data) {
-        var user = mapper.map(data);
-        repository.save(user);
-        return mapper.map(user);
+        var model = mapper.map(data);
+        repository.save(model);
+        return mapper.map(model);
     }
 
     public UserDTO update(Long id, UserUpdateDTO data) {
-        var user = repository.findById(id)
+        var model = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                 "User with id: " + id + "not found"));
-        mapper.update(data, user);
-        repository.save(user);
-        return mapper.map(user);
+        mapper.update(data, model);
+        repository.save(model);
+        return mapper.map(model);
     }
 
     public void delete(Long id) {
