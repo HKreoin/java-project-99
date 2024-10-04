@@ -35,7 +35,7 @@ public class ModelGenerator {
         taskStatusModel = Instancio.of(TaskStatus.class)
                 .ignore(Select.field(TaskStatus::getId))
                 .supply(Select.field(TaskStatus::getName), () -> faker.harryPotter().spell())
-                .supply(Select.field(TaskStatus::getSlug), () -> faker.harryPotter().book())
+                .supply(Select.field(TaskStatus::getSlug), () -> faker.harryPotter().character())
                 .toModel();
     }
 
