@@ -60,9 +60,6 @@ public class UsersControllerTest {
     @Autowired
     private ModelGenerator modelGenerator;
 
-    @Autowired
-    private Faker faker;
-
     private JwtRequestPostProcessor token;
 
     private User testUser;
