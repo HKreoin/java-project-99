@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import hexlet.code.app.dto.UserCreateDTO;
 import hexlet.code.app.mapper.UserMapper;
 import hexlet.code.app.repository.UserRepository;
+import hexlet.code.app.service.UserService;
 import lombok.AllArgsConstructor;
 
 @Component
@@ -20,6 +21,9 @@ public class DataInitializer implements ApplicationRunner {
     @Autowired
     private UserMapper mapper;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
@@ -27,7 +31,6 @@ public class DataInitializer implements ApplicationRunner {
         var email = "hexlet@example.com";
         userData.setEmail(email);
         userData.setPassword("qwerty");
-        var user = mapper.map(userData);
-        userRepository.save(user);
+        userService.create(userData);
     }
 }
