@@ -18,54 +18,47 @@ import org.springframework.web.bind.annotation.RestController;
 import hexlet.code.app.dto.UserCreateDTO;
 import hexlet.code.app.dto.UserDTO;
 import hexlet.code.app.dto.UserUpdateDTO;
-import hexlet.code.app.mapper.UserMapper;
-import hexlet.code.app.repository.UserRepository;
 import hexlet.code.app.service.UserService;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
 public class UsersController {
-    @Autowired
-    private UserRepository repository;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserMapper mapper;
+    private UserService service;
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<List<UserDTO>> index() {
-        var users = userService.findAll();
+        var dtos = service.findAll();
         return ResponseEntity.ok()
-                .header("X-Total-Count", String.valueOf(users.size()))
-                .body(users);
+                .header("X-Total-Count", String.valueOf(dtos.size()))
+                .body(dtos);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     UserDTO show(@PathVariable Long id) {
-        return userService.findById(id);
+        return service.findById(id);
     }
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    UserDTO create(@Valid @RequestBody UserCreateDTO user) {
-        return userService.create(user);
+    UserDTO create(@Valid @RequestBody UserCreateDTO data) {
+        return service.create(data);
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    UserDTO update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO user) {
-        return userService.update(id, user);
+    UserDTO update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO data) {
+        return service.update(id, data);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void destroy(@PathVariable Long id) {
-        userService.delete(id);
+        service.delete(id);
     }
 
 }
