@@ -1,19 +1,20 @@
 package hexlet.code.app.controller.api;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.instancio.Instancio;
@@ -153,6 +154,14 @@ public class UsersControllerTest {
         assertThat(user.getFirstName()).isEqualTo("Testname");
         assertThat(user.getLastName()).isEqualTo("Testlast");
         assertNotNull(user.getUpdatedAt());
+    }
+
+    @Test
+    public void testDelete() throws Exception {
+        var id = testUser.getId();
+        var request = delete("/api/users/" + id).with(token);
+        mockMvc.perform(request);
+        assertThat(userRepository.findById(id).isEmpty()).isTrue();
     }
 
 }
