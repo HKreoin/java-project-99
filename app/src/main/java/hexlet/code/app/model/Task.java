@@ -41,7 +41,7 @@ public class Task implements BaseEntity {
     private String name;
 
     @ToString.Include
-    private String index;
+    private Long index;
 
     @ToString.Include
     private String description;
