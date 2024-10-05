@@ -5,9 +5,9 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
-import hexlet.code.app.dto.TaskStatusCreateDTO;
-import hexlet.code.app.dto.TaskStatusDTO;
-import hexlet.code.app.dto.TaskStatusUpdateDTO;
+import hexlet.code.app.dto.status.TaskStatusCreateDTO;
+import hexlet.code.app.dto.status.TaskStatusDTO;
+import hexlet.code.app.dto.status.TaskStatusUpdateDTO;
 import hexlet.code.app.model.TaskStatus;
 
 @Mapper(

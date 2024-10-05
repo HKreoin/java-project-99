@@ -6,8 +6,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import hexlet.code.app.dto.TaskStatusCreateDTO;
-import hexlet.code.app.dto.UserCreateDTO;
+import hexlet.code.app.dto.status.TaskStatusCreateDTO;
+import hexlet.code.app.dto.user.UserCreateDTO;
 import hexlet.code.app.service.TaskStatusService;
 import hexlet.code.app.service.UserService;
 import lombok.AllArgsConstructor;

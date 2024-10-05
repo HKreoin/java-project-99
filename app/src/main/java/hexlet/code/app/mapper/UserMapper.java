@@ -9,9 +9,9 @@ import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import hexlet.code.app.dto.UserCreateDTO;
-import hexlet.code.app.dto.UserDTO;
-import hexlet.code.app.dto.UserUpdateDTO;
+import hexlet.code.app.dto.user.UserCreateDTO;
+import hexlet.code.app.dto.user.UserDTO;
+import hexlet.code.app.dto.user.UserUpdateDTO;
 import hexlet.code.app.model.User;
 
 @Mapper(

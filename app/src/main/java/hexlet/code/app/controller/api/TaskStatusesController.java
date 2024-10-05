@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import hexlet.code.app.dto.TaskStatusCreateDTO;
-import hexlet.code.app.dto.TaskStatusDTO;
-import hexlet.code.app.dto.TaskStatusUpdateDTO;
+import hexlet.code.app.dto.status.TaskStatusCreateDTO;
+import hexlet.code.app.dto.status.TaskStatusDTO;
+import hexlet.code.app.dto.status.TaskStatusUpdateDTO;
 import hexlet.code.app.service.TaskStatusService;
 import jakarta.validation.Valid;
 

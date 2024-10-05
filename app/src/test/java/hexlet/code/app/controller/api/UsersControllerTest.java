@@ -32,7 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import hexlet.code.app.dto.UserDTO;
+import hexlet.code.app.dto.user.UserDTO;
 import hexlet.code.app.mapper.UserMapper;
 import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
@@ -133,10 +133,11 @@ public class UsersControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        var data = new HashMap<>();
-        data.put("firstName", "Testname");
-        data.put("lastName", "Testlast");
         var id = testUser.getId();
+        var firstName = testUser.getFirstName();
+
+        var data = new HashMap<>();
+        data.put("lastName", "Testlast");
 
         var request = put("/api/users/" + id)
                 .with(token)
@@ -147,7 +148,8 @@ public class UsersControllerTest {
                 .andExpect(status().isOk());
 
         var user = userRepository.findById(id).get();
-        assertThat(user.getFirstName()).isEqualTo("Testname");
+
+        assertThat(user.getFirstName()).isEqualTo(firstName);
         assertThat(user.getLastName()).isEqualTo("Testlast");
         assertNotNull(user.getUpdatedAt());
     }

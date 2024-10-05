@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import hexlet.code.app.dto.UserCreateDTO;
-import hexlet.code.app.dto.UserDTO;
-import hexlet.code.app.dto.UserUpdateDTO;
+import hexlet.code.app.dto.user.UserCreateDTO;
+import hexlet.code.app.dto.user.UserDTO;
+import hexlet.code.app.dto.user.UserUpdateDTO;
 import hexlet.code.app.service.UserService;
 import jakarta.validation.Valid;
 

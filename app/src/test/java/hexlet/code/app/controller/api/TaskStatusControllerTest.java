@@ -32,7 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import hexlet.code.app.dto.TaskStatusDTO;
+import hexlet.code.app.dto.status.TaskStatusDTO;
 import hexlet.code.app.mapper.TaskStatusMapper;
 import hexlet.code.app.model.TaskStatus;
 import hexlet.code.app.repository.TaskStatusRepository;
@@ -131,10 +131,11 @@ public class TaskStatusControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        var data = new HashMap<>();
-        data.put("name", "TestName");
-        data.put("slug", "TestSlug");
         var id = testTaskStatus.getId();
+        var name = testTaskStatus.getName();
+
+        var data = new HashMap<>();
+        data.put("slug", "TestSlug");
 
         var request = put("/api/task_statuses/" + id)
                 .with(token)
@@ -145,7 +146,8 @@ public class TaskStatusControllerTest {
                 .andExpect(status().isOk());
 
         var taskStatus = taskStatusRepository.findById(id).get();
-        assertThat(taskStatus.getName()).isEqualTo("TestName");
+
+        assertThat(taskStatus.getName()).isEqualTo(name);
         assertThat(taskStatus.getSlug()).isEqualTo("TestSlug");
         assertNotNull(taskStatus.getUpdatedAt());
     }
