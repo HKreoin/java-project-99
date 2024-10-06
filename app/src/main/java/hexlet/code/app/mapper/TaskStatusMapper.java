@@ -20,8 +20,6 @@ public abstract class TaskStatusMapper {
 
     public abstract TaskStatus map(TaskStatusCreateDTO data);
 
-    public abstract TaskStatus map(TaskStatusUpdateDTO data);
-
     public abstract TaskStatusDTO map(TaskStatus model);
 
     public abstract TaskStatus map(TaskStatusDTO data);
