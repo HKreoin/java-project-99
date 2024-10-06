@@ -45,10 +45,11 @@ public class ModelGenerator {
         taskModel = Instancio.of(Task.class)
                 .ignore(Select.field(Task::getId))
                 .supply(Select.field(Task::getName), () -> faker.book().title())
-                .supply(Select.field(Task::getIndex), () -> faker.number().numberBetween(1L, 9999L))
-                .supply(Select.field(Task::getDescription), () -> faker.text())
+                .ignore(Select.field(Task::getIndex))
+                .supply(Select.field(Task::getDescription), () -> faker.harryPotter().book())
+                .ignore(Select.field(Task::getTaskStatus))
+                .ignore(Select.field(Task::getAssignee))
                 .toModel();
-                
     }
 
 }
