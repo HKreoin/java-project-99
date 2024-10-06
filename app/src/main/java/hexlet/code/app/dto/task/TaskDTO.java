@@ -3,6 +3,7 @@ package hexlet.code.app.dto.task;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,19 +14,17 @@ public class TaskDTO {
 
     private Long id;
 
-    private String name;
+    private String title;
 
-    private String index;
+    private Long index;
 
-    private String description;
+    private String content;
 
-    private Long statusId;
+    private String status;
 
+    @JsonProperty("assignee_id")
     private Long assigneeId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate createdAt;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate updatedAt;
 }
