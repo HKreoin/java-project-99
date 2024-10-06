@@ -10,4 +10,6 @@ import hexlet.code.app.model.Task;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
     Optional<Task> findByName(String name);
+
+    Optional<Task> findByIndex(Long index);
 }
