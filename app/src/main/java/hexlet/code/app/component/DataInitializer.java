@@ -7,7 +7,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import hexlet.code.app.dto.status.TaskStatusCreateDTO;
+import hexlet.code.app.dto.task.TaskCreateDTO;
 import hexlet.code.app.dto.user.UserCreateDTO;
+import hexlet.code.app.service.TaskService;
 import hexlet.code.app.service.TaskStatusService;
 import hexlet.code.app.service.UserService;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,9 @@ public class DataInitializer implements ApplicationRunner {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TaskService taskService;
 
     @Autowired
     private TaskStatusService taskStatusService;
@@ -45,5 +50,12 @@ public class DataInitializer implements ApplicationRunner {
             statusData.setSlug(v);
             taskStatusService.create(statusData);
         });
+
+        var task = new TaskCreateDTO();
+        task.setTitle("Task 1");
+        task.setContent("Description 1");
+        task.setStatus("draft");
+        task.setAssigneeId(1L);
+        taskService.create(task);
     }
 }
