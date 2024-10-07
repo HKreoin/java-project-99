@@ -6,9 +6,11 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import hexlet.code.app.dto.label.LabelParamDTO;
 import hexlet.code.app.dto.status.TaskStatusCreateDTO;
 import hexlet.code.app.dto.task.TaskCreateDTO;
 import hexlet.code.app.dto.user.UserCreateDTO;
+import hexlet.code.app.service.LabelService;
 import hexlet.code.app.service.TaskService;
 import hexlet.code.app.service.TaskStatusService;
 import hexlet.code.app.service.UserService;
@@ -27,6 +29,9 @@ public class DataInitializer implements ApplicationRunner {
 
     @Autowired
     private TaskStatusService taskStatusService;
+
+    @Autowired
+    private LabelService labelService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -57,5 +62,14 @@ public class DataInitializer implements ApplicationRunner {
         task.setStatus("draft");
         task.setAssigneeId(1L);
         taskService.create(task);
+
+        var label1 = new LabelParamDTO();
+        label1.setName("feature");
+
+        var label2 = new LabelParamDTO();
+        label2.setName("bug");
+
+        labelService.create(label1);
+        labelService.create(label2);
     }
 }
