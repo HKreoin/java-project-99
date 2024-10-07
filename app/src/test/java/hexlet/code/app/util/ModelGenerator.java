@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import hexlet.code.app.model.User;
+import hexlet.code.app.model.Label;
 import hexlet.code.app.model.Task;
 import hexlet.code.app.model.TaskStatus;
 import jakarta.annotation.PostConstruct;
@@ -22,6 +23,8 @@ public class ModelGenerator {
     private Model<TaskStatus> taskStatusModel;
 
     private Model<Task> taskModel;
+
+    private Model<Label> labelModel;
 
     @Autowired
     private Faker faker;
@@ -49,6 +52,13 @@ public class ModelGenerator {
                 .supply(Select.field(Task::getDescription), () -> faker.harryPotter().book())
                 .ignore(Select.field(Task::getTaskStatus))
                 .ignore(Select.field(Task::getAssignee))
+                .ignore(Select.field(Task::getLabels))
+                .toModel();
+
+        labelModel = Instancio.of(Label.class)
+                .ignore(Select.field(Label::getId))
+                .supply(Select.field(Label::getName), () -> faker.harryPotter().spell())
+                .ignore(Select.field(Label::getTasks))
                 .toModel();
     }
 
