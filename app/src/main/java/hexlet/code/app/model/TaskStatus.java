@@ -62,6 +62,7 @@ public class TaskStatus implements BaseEntity {
     @Column(unique = true)
     @Size(min = 1)
     @ToString.Include
+    @EqualsAndHashCode.Include
     private String slug;
 
     @CreatedDate
