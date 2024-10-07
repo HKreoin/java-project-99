@@ -1,5 +1,8 @@
 package hexlet.code.app.dto.task;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -20,4 +23,6 @@ public class TaskCreateDTO {
     private String status;
 
     private Long assigneeId;
+
+    private Set<Long> taskLabelIds = new HashSet<>();
 }

@@ -3,6 +3,8 @@ package hexlet.code.app.model;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,6 +15,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -61,4 +64,17 @@ public class Task implements BaseEntity {
     @CreatedDate
     @Column(updatable = false)
     private LocalDate createdAt;
+
+    @ManyToMany
+    private Set<Label> labels = new HashSet<>();
+
+    public void addLabel(Label label) {
+        labels.add(label);
+        label.addTask(this);
+    }
+
+    public void removeLabel(Label label) {
+        labels.remove(label);
+        label.removeTask(this);
+    }
 }

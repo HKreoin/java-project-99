@@ -1,5 +1,7 @@
 package hexlet.code.app.dto.task;
 
+import java.util.Set;
+
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import jakarta.validation.constraints.NotNull;
@@ -22,4 +24,6 @@ public class TaskUpdateDTO {
     private JsonNullable<String> status;
 
     private JsonNullable<Long> assigneeId;
+
+    private JsonNullable<Set<Long>> taskLabelIds;
 }
