@@ -5,7 +5,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
-import hexlet.code.app.dto.label.LabelParamDTO;
+import hexlet.code.app.dto.label.LabelUpsertDTO;
 import hexlet.code.app.dto.label.LabelDTO;
 import hexlet.code.app.model.Label;
 
@@ -17,12 +17,12 @@ import hexlet.code.app.model.Label;
 )
 public abstract class LabelMapper {
 
-    public abstract Label map(LabelParamDTO data);
+    public abstract Label map(LabelUpsertDTO data);
 
     public abstract LabelDTO map(Label model);
 
     public abstract Label map(LabelDTO data);
 
-    public abstract void update(LabelParamDTO update, @MappingTarget Label target);
+    public abstract void update(LabelUpsertDTO update, @MappingTarget Label target);
 
 }

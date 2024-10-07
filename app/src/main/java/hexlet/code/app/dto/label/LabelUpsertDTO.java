@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LabelParamDTO {
+public class LabelUpsertDTO {
     @Size(min = 3, max = 1000)
     @Column(columnDefinition = "TEXT")
     private String name;

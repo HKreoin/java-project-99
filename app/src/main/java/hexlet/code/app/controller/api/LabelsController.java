@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import hexlet.code.app.dto.label.LabelDTO;
-import hexlet.code.app.dto.label.LabelParamDTO;
+import hexlet.code.app.dto.label.LabelUpsertDTO;
 import hexlet.code.app.service.LabelService;
 import jakarta.validation.Valid;
 
@@ -44,13 +44,13 @@ public class LabelsController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    LabelDTO create(@Valid @RequestBody LabelParamDTO data) {
+    LabelDTO create(@Valid @RequestBody LabelUpsertDTO data) {
         return service.create(data);
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    LabelDTO update(@PathVariable Long id, @Valid @RequestBody LabelParamDTO data) {
+    LabelDTO update(@PathVariable Long id, @Valid @RequestBody LabelUpsertDTO data) {
         return service.update(id, data);
     }
 

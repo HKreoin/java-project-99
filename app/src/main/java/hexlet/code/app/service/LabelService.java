@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import  org.springframework.stereotype.Service;
 
 import hexlet.code.app.dto.label.LabelDTO;
-import hexlet.code.app.dto.label.LabelParamDTO;
+import hexlet.code.app.dto.label.LabelUpsertDTO;
 import hexlet.code.app.exception.ResourceNotFoundException;
 import hexlet.code.app.mapper.LabelMapper;
 import hexlet.code.app.repository.LabelRepository;
@@ -34,13 +34,13 @@ public class LabelService {
         return mapper.map(model);
     }
 
-    public LabelDTO create(LabelParamDTO data) {
+    public LabelDTO create(LabelUpsertDTO data) {
         var model = mapper.map(data);
         repository.save(model);
         return mapper.map(model);
     }
 
-    public LabelDTO update(Long id, LabelParamDTO data) {
+    public LabelDTO update(Long id, LabelUpsertDTO data) {
         var model = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                 "Label with id: " + id + "not found"));

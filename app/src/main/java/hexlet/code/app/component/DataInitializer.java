@@ -6,7 +6,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import hexlet.code.app.dto.label.LabelParamDTO;
+import hexlet.code.app.dto.label.LabelUpsertDTO;
 import hexlet.code.app.dto.status.TaskStatusCreateDTO;
 import hexlet.code.app.dto.task.TaskCreateDTO;
 import hexlet.code.app.dto.user.UserCreateDTO;
@@ -63,10 +63,10 @@ public class DataInitializer implements ApplicationRunner {
         task.setAssigneeId(1L);
         taskService.create(task);
 
-        var label1 = new LabelParamDTO();
+        var label1 = new LabelUpsertDTO();
         label1.setName("feature");
 
-        var label2 = new LabelParamDTO();
+        var label2 = new LabelUpsertDTO();
         label2.setName("bug");
 
         labelService.create(label1);
