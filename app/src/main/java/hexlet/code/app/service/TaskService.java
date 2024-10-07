@@ -11,8 +11,6 @@ import hexlet.code.app.dto.task.TaskUpdateDTO;
 import hexlet.code.app.exception.ResourceNotFoundException;
 import hexlet.code.app.mapper.TaskMapper;
 import hexlet.code.app.repository.TaskRepository;
-import hexlet.code.app.repository.TaskStatusRepository;
-import hexlet.code.app.repository.UserRepository;
 
 @Service
 public class TaskService {
@@ -21,12 +19,6 @@ public class TaskService {
 
     @Autowired
     private TaskMapper mapper;
-
-    @Autowired
-    private TaskStatusRepository statusRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     public List<TaskDTO> findAll() {
         var models = repository.findAll();
@@ -39,7 +31,7 @@ public class TaskService {
     public TaskDTO findById(Long id) {
         var model = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                "Task status with id: " + id + "not found"));
+                "Task with id: " + id + "not found"));
         return mapper.map(model);
     }
 
@@ -57,7 +49,7 @@ public class TaskService {
     public TaskDTO update(Long id, TaskUpdateDTO data) {
         var model = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                    "Task status with id: " + id + "not found"));
+                    "Task with id: " + id + "not found"));
         mapper.update(data, model);
         repository.save(model);
         return mapper.map(model);
