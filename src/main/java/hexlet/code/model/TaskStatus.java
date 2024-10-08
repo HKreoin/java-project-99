@@ -68,7 +68,4 @@ public class TaskStatus implements BaseEntity {
     @CreatedDate
     @Column(updatable = false)
     private LocalDate createdAt;
-
-    @LastModifiedDate
-    private LocalDate updatedAt;
 }

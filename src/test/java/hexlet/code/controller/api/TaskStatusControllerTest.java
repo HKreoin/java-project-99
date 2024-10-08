@@ -149,7 +149,6 @@ public class TaskStatusControllerTest {
 
         assertThat(taskStatus.getName()).isEqualTo(name);
         assertThat(taskStatus.getSlug()).isEqualTo("TestSlug");
-        assertNotNull(taskStatus.getUpdatedAt());
     }
 
     @Test
