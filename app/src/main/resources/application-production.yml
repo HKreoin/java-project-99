@@ -1,8 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgres_url_check_user:ShYjfEjXliEFE4CeCU8ghxnEYLIZtnAF@dpg-cre7q5rgbbvc73bojrpg-a.singapore-postgres.render.com/postgres_url_check
-    username: postgres_url_check_user
-    password: ShYjfEjXliEFE4CeCU8ghxnEYLIZtnAF
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USER}
+    password: ${JDBC_DATABASE_PASSWORD}
     driverClassName: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
