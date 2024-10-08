@@ -57,7 +57,7 @@ public class ModelGenerator {
 
         labelModel = Instancio.of(Label.class)
                 .ignore(Select.field(Label::getId))
-                .supply(Select.field(Label::getName), () -> faker.harryPotter().spell())
+                .supply(Select.field(Label::getName), () -> faker.internet().slug())
                 .ignore(Select.field(Label::getTasks))
                 .toModel();
     }
