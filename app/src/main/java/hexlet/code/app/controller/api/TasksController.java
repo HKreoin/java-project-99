@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hexlet.code.app.dto.task.TaskCreateDTO;
 import hexlet.code.app.dto.task.TaskDTO;
+import hexlet.code.app.dto.task.TaskParamsDTO;
 import hexlet.code.app.dto.task.TaskUpdateDTO;
 import hexlet.code.app.service.TaskService;
 import jakarta.validation.Valid;
@@ -30,8 +31,8 @@ public class TasksController {
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<List<TaskDTO>> index() {
-        var dtos = service.findAll();
+    ResponseEntity<List<TaskDTO>> index(TaskParamsDTO params) {
+        var dtos = service.findAll(params);
         return ResponseEntity.ok()
                 .header("X-Total-Count", String.valueOf(dtos.size()))
                 .body(dtos);

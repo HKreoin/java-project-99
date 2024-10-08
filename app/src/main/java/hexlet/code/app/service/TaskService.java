@@ -7,10 +7,12 @@ import  org.springframework.stereotype.Service;
 
 import hexlet.code.app.dto.task.TaskCreateDTO;
 import hexlet.code.app.dto.task.TaskDTO;
+import hexlet.code.app.dto.task.TaskParamsDTO;
 import hexlet.code.app.dto.task.TaskUpdateDTO;
 import hexlet.code.app.exception.ResourceNotFoundException;
 import hexlet.code.app.mapper.TaskMapper;
 import hexlet.code.app.repository.TaskRepository;
+import hexlet.code.app.specification.TaskSpecification;
 
 @Service
 public class TaskService {
@@ -20,8 +22,12 @@ public class TaskService {
     @Autowired
     private TaskMapper mapper;
 
-    public List<TaskDTO> findAll() {
-        var models = repository.findAll();
+    @Autowired
+    private TaskSpecification specification;
+
+    public List<TaskDTO> findAll(TaskParamsDTO params) {
+        var spec = specification.build(params);
+        var models = repository.findAll(spec);
         var result = models.stream()
                 .map(mapper :: map)
                 .toList();
