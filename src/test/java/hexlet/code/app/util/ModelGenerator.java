@@ -41,8 +41,8 @@ public class ModelGenerator {
 
         taskStatusModel = Instancio.of(TaskStatus.class)
                 .ignore(Select.field(TaskStatus::getId))
-                .supply(Select.field(TaskStatus::getName), () -> faker.harryPotter().spell())
-                .supply(Select.field(TaskStatus::getSlug), () -> faker.harryPotter().character())
+                .supply(Select.field(TaskStatus::getName), () -> faker.internet().username())
+                .supply(Select.field(TaskStatus::getSlug), () -> faker.internet().slug())
                 .toModel();
 
         taskModel = Instancio.of(Task.class)
