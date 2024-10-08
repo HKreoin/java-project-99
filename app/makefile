@@ -11,7 +11,9 @@ clean:
 	./gradlew clean
 
 build:
-	./gradlew clean build
+	make clean
+	make lint
+	make test
 
 start: dev
 
